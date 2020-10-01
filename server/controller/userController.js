@@ -16,11 +16,6 @@ class UserController {
             next(err)
           })
       }
-    
-    
-    
-    
-    
     static login(req, res, next) {
         const {
             email,
