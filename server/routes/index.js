@@ -1,10 +1,8 @@
-const router = require('express').Router()
+const router = require('express').Router();
+const userRouter = require('./userRouter');
+const movieRouter = require('./movie-router');
 
-const userRoute = require('./userRoute')
-const animeRoute = require('./animeRoute')
+router.use('/users', userRouter);
+router.use('/movies', movieRouter);
 
-// router.use('/animes', animeRoute)
-router.use('/users', userRoute)
-
-
-module.exports = router
+module.exports = router;
