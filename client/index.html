@@ -4,9 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
   <!--bootstrap style-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
   <title>Fancy Anime Movie</title>
   <!-- Import Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/fontawesome.min.css" />
@@ -18,6 +23,39 @@
 
 <body>
 
+  <h1>Fancy Home Page Here...</h1>
+
+
+  <!-- Halaman Login -->
+  <section id="login-page" class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-4">
+        <div class="shadow-lg p-5 mb-5 bg-white rounded">
+          <h1>LOGIN PAGE</h1>
+          <form onsubmit="login(event)">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp"
+                placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="login-password" placeholder="Password">
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 
 
 
@@ -28,140 +66,192 @@
       <h1>Register Form</h1>
       <div id="error-alert-register">
 
-      </div>
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <!--bootstrap style-->
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+          <title>Fancy Anime Movie</title>
+          <!-- Import Fonts -->
+          <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/fontawesome.min.css" />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel" />
+          <!-- Main CSS -->
+          <link rel="stylesheet" href="./resources/css/style.css" />
+        </head>
+
+        <body>
 
 
-      <form>
-        <div class="form-row mt-5">
-          <div class="col-md-3 mb-3">
-            <input type="text" placeholder="First Name" class="form-control" id="first_name-register" required>
+
+
+          <!---Register Page-->
+          <div class="container mt-5">
+
+            <form id="register-form">
+              <h1>Register Form</h1>
+              <div id="error-alert-register">
+
+              </div>
+
+
+              <form>
+                <div class="form-row mt-5">
+                  <div class="col-md-3 mb-3">
+                    <input type="text" placeholder="First Name" class="form-control" id="first_name-register" required>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <input type="text" placeholder="Last Name" class="form-control" id="last_name-register" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <input type="email" placeholder="Email" class="form-control" id="email-register"
+                      aria-describedby="validationServer03Feedback" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <input type="password" placeholder="Password" class="form-control" id="password-register"
+                      aria-describedby="validationServer03Feedback" required>
+                  </div>
+                </div>
+                <button class="btn btn-danger">Cancel</button>
+                <button class="btn btn-primary" onclick="register(event)" type="submit">Register</button>
+              </form>
           </div>
-          <div class="col-md-3 mb-3">
-            <input type="text" placeholder="Last Name" class="form-control" id="last_name-register" required>
+
+
+
+          <!-- bootstrap script-->
+          <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+          <script src="./resources/js/main.js"></script>
+
+          <div class="wrapper">
+            <!-- Header Gais Nanti bisa di show atau hide -->
+            <header class="header-wrapper">
+              <div class="header-content">
+                <a href="/" aria-label="Go Home">
+                  <img class="svelte-logo" src="./resources/img/svelte-logo.svg" alt="svelte-logo" />
+                </a>
+                <img class="tmdb-logo" src="./resources/img/tmdb_logo.svg" alt="tmdb-logo" />
+              </div>
+            </header>
+
+            <!-- Jumbotrone / Hero Gais Nanti bisa di show atau hide -->
+            <section class="hero-wrapper">
+              <div class="hero-content">
+                <div class="hero-text">
+                  <h1>"Fancy Movies Application"</h1>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quibusdam tenetur
+                    consequuntur! Odio
+                    quam accusamus praesentium ab hic velit
+                    non, suscipit cumque quo qui in obcaecati vitae sint corrupti alias fugiat eveniet animi cupiditate
+                    saepe
+                    labore! Ducimus fugit expedita
+                    distinctio repellat et consequuntur iusto delectus.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section class="search-wrapper">
+              <div class="search-content">
+                <!-- <i class="fa fa-search fa-2x" name="search" /> -->
+                <input type="text" id="search-widget" name="search-widget" placeholder="Search Movie" />
+              </div>
+            </section>
+
+            <!-- bootstrap script-->
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+              integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+              crossorigin="anonymous"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+              integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+              crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+              integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+              crossorigin="anonymous"></script>
+            <script src="./resources/js/main.js"></script>
+
+            <div class="wrapper">
+              <h1>The Movies</h1>
+              <div class="content">
+                <div class="wrapper">
+                  <a href="#">
+                    <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+                  </a>
+                </div>
+                <div class="wrapper">
+                  <a href="#">
+                    <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+                  </a>
+                </div>
+                <div class="wrapper">
+                  <a href="#">
+                    <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+                  </a>
+                </div>
+                <div class="wrapper">
+                  <a href="#">
+                    <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+                  </a>
+                </div>
+                <div class="wrapper">
+                  <a href="#">
+                    <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+                  </a>
+                </div>
+                <div class="wrapper">
+                  <a href="#">
+                    <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+                  </a>
+                </div>
+                <div class="wrapper">
+                  <a href="#">
+                    <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+                  </a>
+                </div>
+                <div class="wrapper">
+                  <a href="#">
+                    <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+                  </a>
+                </div>
+                <div class="wrapper">
+                  <a href="#">
+                    <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="col-md-6 mb-3">
-            <input type="email" placeholder="Email" class="form-control" id="email-register"
-              aria-describedby="validationServer03Feedback" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col-md-6 mb-3">
-            <input type="password" placeholder="Password" class="form-control" id="password-register"
-              aria-describedby="validationServer03Feedback" required>
-          </div>
-        </div>
-        <button class="btn btn-danger">Cancel</button>
-        <button class="btn btn-primary" onclick="register(event)" type="submit">Register</button>
-      </form>
-  </div>
 
+          <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+          <script src="resources/js/main.js"></script>
 
+        </body>
 
-  <!-- bootstrap script-->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-    crossorigin="anonymous"></script>
-  <script src="./resources/js/main.js"></script>
-
-  <div class="wrapper">
-    <!-- Header Gais Nanti bisa di show atau hide -->
-    <header class="header-wrapper">
-      <div class="header-content">
-        <a href="/" aria-label="Go Home">
-          <img class="svelte-logo" src="./resources/img/svelte-logo.svg" alt="svelte-logo" />
-        </a>
-        <img class="tmdb-logo" src="./resources/img/tmdb_logo.svg" alt="tmdb-logo" />
-      </div>
-    </header>
-
-    <!-- Jumbotrone / Hero Gais Nanti bisa di show atau hide -->
-    <section class="hero-wrapper">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>"Fancy Movies Application"</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quibusdam tenetur consequuntur! Odio
-            quam accusamus praesentium ab hic velit
-            non, suscipit cumque quo qui in obcaecati vitae sint corrupti alias fugiat eveniet animi cupiditate saepe
-            labore! Ducimus fugit expedita
-            distinctio repellat et consequuntur iusto delectus.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="search-wrapper">
-      <div class="search-content">
-        <!-- <i class="fa fa-search fa-2x" name="search" /> -->
-        <input type="text" id="search-widget" name="search-widget" placeholder="Search Movie" />
-      </div>
-    </section>
-
-    <div class="wrapper">
-      <h1>The Movies</h1>
-      <div class="content">
-        <div class="wrapper">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-    crossorigin="anonymous"></script>
-  <script src="resources/js/main.js"></script>
+        <<<<<<< HEAD </html>
+          =======
 
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./main.js"></script>
+
 </html>
+>>>>>>> 95f603ba4a8110f1afdeb9bab152523b3f641788
