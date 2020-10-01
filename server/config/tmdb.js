@@ -1,7 +1,7 @@
 'use strict';
 
 const API_URL = 'https://api.themoviedb.org/3/';
-const API_KEY = '09a303d63432dfd6ab2e6c28b619b686';
+const API_KEY = process.env.API_KEY;
 
 const SEARCH_BASE_URL = `${API_URL}search/movie?api_key=${API_KEY}&query=`;
 const POPULAR_BASE_URL = `${API_URL}movie/popular?api_key=${API_KEY}`;
