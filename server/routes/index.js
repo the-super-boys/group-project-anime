@@ -11,12 +11,14 @@ router.get("/trivia", (req, res, next) => {
 
     axios({
         method: "post",
-        url: "https://opentdb.com/api.php?amount=4&category=31&type=boolean"
+        url: "https://opentdb.com/api.php?amount=1&category=31&type=boolean"
     })
         .then(response => {
-            let trivia = response.data
+            let trivia = response.data.results[0].question
+            let answer = response.data.results[0].correct_answer
             res.status(200).json({
-                trivia
+                trivia,
+                answer
             })
         })
         .catch(err => next(err))
