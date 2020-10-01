@@ -9,7 +9,6 @@ class MovieController {
       let movie = await fetchMovie(id);
       res.status(200).json(movie);
     } catch (err) {
-      console.log(err, '<<<<<<<<<<<<<<<<< ERROR');
       next(err);
     }
   }

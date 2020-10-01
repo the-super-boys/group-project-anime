@@ -12,55 +12,86 @@
     <link rel="stylesheet" href="./resources/css/style.css" />
   </head>
   <body>
-    <h1>Fancy Home Page Here...</h1>
     <div class="wrapper">
-      <h1>Header</h1>
-      <div id="movie-container" class="content">
-        <!-- Harcode Buat Tampilin Movie Thumbnail -->
-        <div class="wrapper-thumb">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+      <!-- Header Gais Nanti bisa di show atau hide -->
+      <header class="header-wrapper">
+        <div class="header-content">
+          <a href="/" aria-label="Go Home">
+            <img class="svelte-logo" src="./resources/img/svelte-logo.svg" alt="svelte-logo" />
           </a>
+          <img class="tmdb-logo" src="./resources/img/tmdb_logo.svg" alt="tmdb-logo" />
         </div>
-        <div class="wrapper-thumb">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
+      </header>
+
+      <!-- Jumbotrone / Hero Gais Nanti bisa di show atau hide -->
+      <section class="hero-wrapper">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>"Fancy Movies Application"</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quibusdam tenetur consequuntur! Odio quam accusamus praesentium ab hic velit
+              non, suscipit cumque quo qui in obcaecati vitae sint corrupti alias fugiat eveniet animi cupiditate saepe labore! Ducimus fugit expedita
+              distinctio repellat et consequuntur iusto delectus.
+            </p>
+          </div>
         </div>
-        <div class="wrapper-thumb">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
+      </section>
+
+      <section class="search-wrapper">
+        <div class="search-content">
+          <!-- <i class="fa fa-search fa-2x" name="search" /> -->
+          <input type="text" id="search-widget" name="search-widget" placeholder="Search Movie" />
         </div>
-        <div class="wrapper-thumb">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper-thumb">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper-thumb">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper-thumb">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper-thumb">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
-        </div>
-        <div class="wrapper-thumb">
-          <a href="#">
-            <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
-          </a>
+      </section>
+
+      <div class="wrapper">
+        <h1>The Movies</h1>
+        <div class="content">
+          <div class="wrapper">
+            <a href="#">
+              <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+            </a>
+          </div>
+          <div class="wrapper">
+            <a href="#">
+              <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+            </a>
+          </div>
+          <div class="wrapper">
+            <a href="#">
+              <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+            </a>
+          </div>
+          <div class="wrapper">
+            <a href="#">
+              <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+            </a>
+          </div>
+          <div class="wrapper">
+            <a href="#">
+              <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+            </a>
+          </div>
+          <div class="wrapper">
+            <a href="#">
+              <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+            </a>
+          </div>
+          <div class="wrapper">
+            <a href="#">
+              <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+            </a>
+          </div>
+          <div class="wrapper">
+            <a href="#">
+              <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+            </a>
+          </div>
+          <div class="wrapper">
+            <a href="#">
+              <img class="clickable" src="./resources/img/no_image.jpg" alt="moviethumb" />
+            </a>
+          </div>
         </div>
       </div>
     </div>

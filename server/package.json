@@ -12,7 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.20.0",
+<<<<<<< HEAD
     "bcrypt": "^5.0.0",
+=======
+>>>>>>> 7b73d33dd0f4fa7e2aef76ed8bbd10b18065642e
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
@@ -21,10 +24,10 @@
     "node-fetch": "^2.6.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.3.3",
-    "sequelize": "^6.3.5",
-    "sequelize-cli": "^6.2.0"
+    "sequelize": "^6.3.5"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "sequelize-cli": "^6.2.0",
+    "nodemon": "^2.0.4"
   }
 }
