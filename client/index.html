@@ -23,8 +23,6 @@
 
 <body>
 
-  <h1>Fancy Home Page Here...</h1>
-
 
   <!-- Halaman Login -->
   <section id="login-page" class="container">
@@ -44,51 +42,19 @@
               <label for="exampleInputPassword1">Password</label>
               <input type="password" class="form-control" id="login-password" placeholder="Password">
             </div>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+          <div>
+            <p>Don't have an account? <a href="" id="register-link">Register</a></p>
+          </div>
         </div>
       </div>
+      
     </div>
   </section>
 
-
-
-
-
-  <!---Register Page-->
-  <div class="container mt-5">
-
-    <form id="register-form">
-      <h1>Register Form</h1>
-      <div id="error-alert-register">
-
-        <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <!--bootstrap style-->
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-          <title>Fancy Anime Movie</title>
-          <!-- Import Fonts -->
-          <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/fontawesome.min.css" />
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel" />
-          <!-- Main CSS -->
-          <link rel="stylesheet" href="./resources/css/style.css" />
-        </head>
-
-        <body>
-
-
-
-
           <!---Register Page-->
-          <div class="container mt-5">
+          <div class="container mt-5" id="register-page">
 
             <form id="register-form">
               <h1>Register Form</h1>
@@ -118,7 +84,7 @@
                       aria-describedby="validationServer03Feedback" required>
                   </div>
                 </div>
-                <button class="btn btn-danger">Cancel</button>
+                <button class="btn btn-danger" id="cancel-register">Cancel</button>
                 <button class="btn btn-primary" onclick="register(event)" type="submit">Register</button>
               </form>
           </div>
@@ -138,7 +104,14 @@
             crossorigin="anonymous"></script>
           <script src="./resources/js/main.js"></script>
 
-          <div class="wrapper">
+          <!--Trivia Page-->
+          <div class="container" id="trivia-page">
+            
+          </div>
+
+
+          <!--Home-page-->
+          <div class="wrapper" id="home-page">
             <!-- Header Gais Nanti bisa di show atau hide -->
             <header class="header-wrapper">
               <div class="header-content">
@@ -245,8 +218,8 @@
 
         </body>
 
-        <<<<<<< HEAD </html>
-          =======
+         </html>
+          
 
 </body>
 

@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const express = require('express');
 const router = require('./routes');
 const cors = require('cors');
@@ -15,5 +14,5 @@ app.use(router);
 app.use(errHandler);
 
 app.listen(PORT, () => {
-  console.log(`Server listening in ${process.env.NODE_ENV} on PORT: ${PORT}`);
+  console.log(`Server listening in on PORT: ${PORT}`);
 });
