@@ -12,10 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.20.0",
-<<<<<<< HEAD
     "bcrypt": "^5.0.0",
-=======
->>>>>>> 7b73d33dd0f4fa7e2aef76ed8bbd10b18065642e
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
