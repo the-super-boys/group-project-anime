@@ -1,12 +1,10 @@
-const router = require('express').Router()
+const router = require('express').Router();
+const userRouter = require('./userRouter');
+const movieRouter = require('./movie-router');
 const axios = require('axios')
-const userRoute = require('./userRoute')
-const animeRoute = require('./animeRoute')
 
-// router.use('/animes', animeRoute)
-router.use('/users', userRoute)
-
-//api trivia
+router.use('/users', userRouter);
+router.use('/movies', movieRouter);
 router.get("/trivia", (req, res, next) => {
 
     axios({
@@ -24,5 +22,5 @@ router.get("/trivia", (req, res, next) => {
         .catch(err => next(err))
 })
 
+module.exports = router;
 
-module.exports = router
