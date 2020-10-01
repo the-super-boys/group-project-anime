@@ -1,8 +1,10 @@
-const router = require("express").Router()
-const userRouter = require("./userRouter")
+const router = require('express').Router()
 
-router.use("/users", userRouter)
+const userRoute = require('./userRoute')
+const animeRoute = require('./animeRoute')
 
+// router.use('/animes', animeRoute)
+router.use('/users', userRoute)
 
 
 module.exports = router
