@@ -101,6 +101,8 @@ function afterLogin() {
   $("#login-page").hide()
   $("#register-page").hide()
   $("#home-page").show()
+  $("#correct-page").hide()
+  $("#incorrect-page").hide()
   initMovie() // ini untuk inisialisasi movies pada saat masuk homepage
   $.ajax({
     method: "get",
@@ -302,3 +304,41 @@ function onSignIn(googleUser) {
       console.log(err, "error google")
     })
 }
+
+
+$(function () {
+  var loading = $('#loadbar').hide();
+  $(document)
+    .ajaxStart(function () {
+      loading.show();
+    }).ajaxStop(function () {
+      loading.hide();
+    });
+
+  $("label.btn").on('click', function () {
+    var choice = $(this).find('input:radio').val();
+    $('#loadbar').show();
+    $('#quiz').fadeOut();
+    setTimeout(function () {
+      $("#answer").html($(this).checking(choice));
+      $('#loadbar').fadeOut();
+      /* something else */
+    }, 1500);
+  });
+
+  $ans = "False";
+
+
+  $.fn.checking = function (ck) {
+    if (ck != $ans)
+      return $("#incorrect-page").show(), setTimeout(() => {
+        $('#correct-page').hide(),
+          $('#trivia-page').fadeOut();
+      }, 2000);
+    else
+      return $("#correct-page").show(), setTimeout(() => {
+        $('#correct-page').hide(),
+          $('#trivia-page').fadeOut();
+      }, 2000);
+  }
+})
