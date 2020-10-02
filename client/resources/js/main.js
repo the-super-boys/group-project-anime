@@ -1,13 +1,130 @@
-let baseUrl = `http://localhost:3452`
-var params = null;
-var isLoading = null;
-var error = null;
-var movie = null;
+let baseUrl = `http://localhost:3452`;
+var IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
+var POSTER_SIZE = 'w500';
 
+let movies = { movies: [] };
+let isLoading;
+let searchTerm = '';
+let error;
+
+const handleFetchMovies = async (loadMore, searchTerm) => {
+  try {
+    isLoading = true;
+    error = false;
+    $.ajax({
+      url: `${baseUrl}/movies/`,
+      method: 'POST',
+      headers: {
+        token: localStorage.getItem('token'),
+      },
+      data: {
+        movies,
+        loadMore,
+        searchTerm,
+      },
+    })
+      .done((res) => {
+        movies.currentPage = res.anime_movies.currentPage;
+        movies.heroImage = res.anime_movies.heroImage;
+        movies.totalPages = res.anime_movies.totalPages;
+        movies.movies = [];
+
+        res.anime_movies.movies.map((movie) => {
+          movies.movies.push(movie);
+        });
+
+        console.log(movies);
+
+        console.log(movies.movies.length);
+
+        if (movies.movies.length > 0) {
+          window.sessionStorage.setItem('anime_movies', JSON.stringify(movies));
+        }
+
+        let output = '';
+        $.each(movies.movies, function (key, val) {
+          let image = `${val.poster_path}` && `${IMAGE_BASE_URL}${POSTER_SIZE}${val.poster_path}`;
+          let movieId = val.id;
+          let href = movieId ? `/movies/${movieId}` : '1';
+          let src = image ? image : `./resources/img/no_image.jpg`;
+          output = `
+            <div class="wrapper">
+              <a href="${href}">
+                <img class="clickable" src="${src}" alt="moviethumb" />
+              </a>
+            </div>
+          `;
+          $('#movies-container').append(output);
+        });
+      })
+      .fail((err) => {
+        console.log(err, '<<<<<<<<<<<<<<<<< ERROR');
+      });
+  } catch (err) {
+    error = true;
+  }
+  isLoading = false;
+};
+
+const handleLoadMore = () => handleFetchMovies(true, searchTerm);
+
+//setup before functions
+var typingTimer; //timer identifier
+var doneTypingInterval = 3000; //time in ms, 5 second for example
+var $input = $('#search-widget');
+
+//on keyup, start the countdown
+$input.on('keyup', function () {
+  clearTimeout(typingTimer);
+  typingTimer = setTimeout(doneTyping, doneTypingInterval);
+});
+
+//on keydown, clear the countdown
+$input.on('keydown', function () {
+  clearTimeout(typingTimer);
+});
+
+//user is "finished typing," do something
+function doneTyping() {
+  searchTerm = $('#search-widget').val();
+  $('#movies-container').empty();
+  handleFetchMovies(false, searchTerm);
+}
+
+function initMovies() {
+  const sessionMovies = window.sessionStorage.getItem('anime_movies');
+  if (sessionMovies) {
+    console.log('Grabbing from sessionStorage.');
+    curr_movies = JSON.parse(sessionMovies);
+    console.log(curr_movies.movies);
+    let moviesresult = curr_movies.movies;
+    console.log(moviesresult.length);
+    let output = '';
+    $.each(moviesresult, function (key, val) {
+      let image = `${val.poster_path}` && `${IMAGE_BASE_URL}${POSTER_SIZE}${val.poster_path}`;
+      console.log(image);
+      let movieId = val.id;
+      let href = movieId ? `/movies/${movieId}` : '1';
+      let src = image ? image : `./resources/img/no_image.jpg`;
+      output = `
+          <div class="wrapper">
+            <a href="${href}">
+              <img class="clickable" src="${src}" alt="moviethumb" />
+            </a>
+          </div>
+        `;
+      $('#movies-container').append(output);
+    });
+  } else {
+    console.log('Grabbing from API.');
+    searchTerm = 'Anime';
+    handleFetchMovies(false, searchTerm);
+  }
+}
 
 $(document).ready(function () {
   // Handler for .ready() called.
-  console.log("Hello world")
+  console.log('Hello world');
   if (localStorage.token) {
     afterLogin();
   } else {
@@ -15,39 +132,43 @@ $(document).ready(function () {
   }
 });
 
-$("#cancel-register").click(event => {
+$('#cancel-register').click((event) => {
   event.preventDefault();
-  $("#first_name-register").val("");
-  $("#last_name-register").val("");
-  $("#email-register").val("");
-  $("#password-register").val("");
-  $("#register-page").hide()
-  $("#login-page").show()
-})
+  $('#first_name-register').val('');
+  $('#last_name-register').val('');
+  $('#email-register').val('');
+  $('#password-register').val('');
+  $('#register-page').hide();
+  $('#login-page').show();
+});
 
-$("#register-link").click(event => {
+$('#register-link').click((event) => {
   event.preventDefault();
-  $("#login-page").hide()
-  $("#register-page").show()
-})
+  $('#login-page').hide();
+  $('#register-page').show();
+});
 
 function beforeLogin() {
-  $("#login-page").show()
-  $("#register-page").hide()
-  $("#trivia-page").hide()
-  $("#home-page").hide()
+  $('#login-page').show();
+  $('#register-page').hide();
+  $('#trivia-page').hide();
+  $('#home-page').hide();
 }
 
 function afterLogin() {
-  $("#login-page").hide()
-  $("#register-page").hide()
-  $("#home-page").show()
+  $('#login-page').hide();
+  $('#register-page').hide();
+  $('#home-page').show();
+  initMovies();
   $.ajax({
-    method: "get",
-    url: `${baseUrl}/trivia`
+    method: 'get',
+    url: `${baseUrl}/trivia`,
+    headers: {
+      token: localStorage.getItem('token'),
+    },
   })
-    .done(trivia => {
-      $("#trivia-page").append(`
+    .done((trivia) => {
+      $('#trivia-page').append(`
         <div class="row justify-content-center">
         <div class="card">
         <h5 class="card-header">Trivia Question</h5>
@@ -58,50 +179,50 @@ function afterLogin() {
         </div>
         </div>
         </div>
-        ` );
-      $("#trivia-page").show()
+        `);
+      $('#trivia-page').show();
     })
-    .fail(err => {
-      console.log(err.responseJSON.errors, ">>>>ERROR REGISTER")
-    })
+    .fail((err) => {
+      console.log(err.responseJSON.errors, '>>>>ERROR REGISTER');
+    });
 }
 
 function register(event) {
-  event.preventDefault()
-  $("#error-alert-register").empty()
+  event.preventDefault();
+  $('#error-alert-register').empty();
   let newUserObj = {
-    first_name: $("#first_name-register").val(),
-    last_name: $("#last_name-register").val(),
-    email: $("#email-register").val(),
-    password: $("#password-register").val(),
-  }
+    first_name: $('#first_name-register').val(),
+    last_name: $('#last_name-register').val(),
+    email: $('#email-register').val(),
+    password: $('#password-register').val(),
+  };
   $.ajax({
-    method: "POST",
+    method: 'POST',
     url: `${baseUrl}/users/register`,
-    data: newUserObj
+    data: newUserObj,
   })
-    .done(result => {
-      $("#first_name-register").val("");
-      $("#last_name-register").val("");
-      $("#email-register").val("");
-      $("#password-register").val("");
-      $("#register-page").hide();
-      $("#login-page").show()
-      console.log(result, ">>>>>>REGISTER SUCCESS")
+    .done((result) => {
+      $('#first_name-register').val('');
+      $('#last_name-register').val('');
+      $('#email-register').val('');
+      $('#password-register').val('');
+      $('#register-page').hide();
+      $('#login-page').show();
+      console.log(result, '>>>>>>REGISTER SUCCESS');
     })
-    .fail(error => {
+    .fail((error) => {
       $.each(error.responseJSON.errors, function (key, value) {
-        $("#error-alert-register").append(`
+        $('#error-alert-register').append(`
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Errors!</strong> ${value}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         </div>
-        ` );
+        `);
       });
-      console.log(error, ">>>>ERROR REGISTER")
-    })
+      console.log(error, '>>>>ERROR REGISTER');
+    });
 }
 
 const handleFetchMovie = async (event) => {
@@ -129,54 +250,53 @@ const handleFetchMovie = async (event) => {
 
 function login(event) {
   event.preventDefault();
-  let email = $("#login-email").val();
-  let password = $("#login-password").val();
+  let email = $('#login-email').val();
+  let password = $('#login-password').val();
   $.ajax({
-          url: `${baseUrl}/users/login`,
-          method: "POST",
-          data: {
-              email,
-              password
-          }
-      })
-      .done(data => {
-          console.log(data, '<<<<<<<<<<<<<<<<< data login');
-          localStorage.setItem("token", data.token)
-          $("#login-email").val("");
-          $("#login-password").val("");
-          afterLogin()
-
-      })
-      .fail(err => {
-          console.log(err.responseJSON.errors, '<<<<<<<<<<<<<<<<< error login');
-      })
+    url: `${baseUrl}/users/login`,
+    method: 'POST',
+    data: {
+      email,
+      password,
+    },
+  })
+    .done((data) => {
+      console.log(data, '<<<<<<<<<<<<<<<<< data login');
+      localStorage.setItem('token', data.token);
+      $('#login-email').val('');
+      $('#login-password').val('');
+      afterLogin();
+    })
+    .fail((err) => {
+      console.log(err.responseJSON.errors, '<<<<<<<<<<<<<<<<< error login');
+    });
 }
 
 function logout(event) {
-  event.preventDefault()
+  event.preventDefault();
   let auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
     console.log('User signed out.');
   });
   localStorage.clear();
-  beforeLogin()
+  beforeLogin();
 }
 
 //google sign-in
 function onSignIn(googleUser) {
   var tokenGoogle = googleUser.getAuthResponse().id_token;
   $.ajax({
-    url: baseUrl+ "/users/googlesign",
-    method: "POST",
+    url: baseUrl + '/users/googlesign',
+    method: 'POST',
     data: {
-      tokenGoogle
-    }
+      tokenGoogle,
+    },
   })
-    .done(res => {
-      localStorage.setItem("token", res.token)
-      afterLogin()
+    .done((res) => {
+      localStorage.setItem('token', res.token);
+      afterLogin();
     })
-    .fail(err => {
-      console.log(err, "error google")
-    })
+    .fail((err) => {
+      console.log(err, 'error google');
+    });
 }

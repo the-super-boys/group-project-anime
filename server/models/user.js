@@ -1,9 +1,7 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 
-const { hashPassword } = require("../helpers/bcrypt")
+const { hashPassword } = require('../helpers/bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -15,59 +13,60 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  User.init({
-    first_name: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "First name required!"
-        }
-      }
-    },
-    last_name: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "Last name required!"
-        }
-      }
-    },
-    email: {
-      unique: true,
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "Email required!"
+  }
+  User.init(
+    {
+      first_name: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'First name required!',
+          },
         },
-        isEmail: {
-          args: true,
-          msg: "Invalid email format!"
-        }
-      }
+      },
+      last_name: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'Last name required!',
+          },
+        },
+      },
+      email: {
+        unique: true,
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'Email required!',
+          },
+          isEmail: {
+            args: true,
+            msg: 'Invalid email format!',
+          },
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'Password required!',
+          },
+        },
+      },
     },
-    password: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "Password required!"
-        }
-      }
+    {
+      hooks: {
+        beforeCreate: (user, opt) => {
+          user.password = hashPassword(user.password);
+        },
+      },
+      sequelize,
+      modelName: 'User',
     }
-  }, {
-    hooks: {
-      beforeCreate: (user, opt) => {
-        user.password = hashPassword(user.password)
-      }
-    }
-    ,
-
-    sequelize,
-    modelName: 'User',
-  });
+  );
   return User;
 };
