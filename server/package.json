@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node app.js",
-    "dev": "cross-env NODE_ENV=development npx nodemon app.js"
+    "start": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +17,9 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "node-fetch": "^2.6.1",
+    "google-auth-library": "^6.1.0",
     "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.1",
     "pg": "^8.3.3",
     "sequelize": "^6.3.5"
   },

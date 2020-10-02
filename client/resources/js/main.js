@@ -1,10 +1,70 @@
+let baseUrl = `http://localhost:3452`
+var params = null;
+var isLoading = null;
+var error = null;
+var movie = null;
 
-let baseUrl = `http://localhost:3000`
 
 $(document).ready(function () {
   // Handler for .ready() called.
   console.log("Hello world")
+  if (localStorage.token) {
+    afterLogin();
+  } else {
+    beforeLogin();
+  }
 });
+
+$("#cancel-register").click(event => {
+  event.preventDefault();
+  $("#first_name-register").val("");
+  $("#last_name-register").val("");
+  $("#email-register").val("");
+  $("#password-register").val("");
+  $("#register-page").hide()
+  $("#login-page").show()
+})
+
+$("#register-link").click(event => {
+  event.preventDefault();
+  $("#login-page").hide()
+  $("#register-page").show()
+})
+
+function beforeLogin() {
+  $("#login-page").show()
+  $("#register-page").hide()
+  $("#trivia-page").hide()
+  $("#home-page").hide()
+}
+
+function afterLogin() {
+  $("#login-page").hide()
+  $("#register-page").hide()
+  $("#home-page").show()
+  $.ajax({
+    method: "get",
+    url: `${baseUrl}/trivia`
+  })
+    .done(trivia => {
+      $("#trivia-page").append(`
+        <div class="row justify-content-center">
+        <div class="card">
+        <h5 class="card-header">Trivia Question</h5>
+        <div class="card-body">
+          <p class="card-text">${trivia.trivia}</p>
+          <a id="btn-trivia-yes" class="btn btn-primary">Yes</a>
+          <a id="btn-trivia-no" class="btn btn-primary">No</a>
+        </div>
+        </div>
+        </div>
+        ` );
+      $("#trivia-page").show()
+    })
+    .fail(err => {
+      console.log(err.responseJSON.errors, ">>>>ERROR REGISTER")
+    })
+}
 
 function register(event) {
   event.preventDefault()
@@ -21,11 +81,13 @@ function register(event) {
     data: newUserObj
   })
     .done(result => {
-      $("#first_name-register").val(""),
-        $("#last_name-register").val(""),
-        $("#email-register").val(""),
-        $("#password-register").val(""),
-        console.log(result, ">>>>>>REGISTER SUCCESS")
+      $("#first_name-register").val("");
+      $("#last_name-register").val("");
+      $("#email-register").val("");
+      $("#password-register").val("");
+      $("#register-page").hide();
+      $("#login-page").show()
+      console.log(result, ">>>>>>REGISTER SUCCESS")
     })
     .fail(error => {
       $.each(error.responseJSON.errors, function (key, value) {
@@ -41,15 +103,6 @@ function register(event) {
       console.log(error, ">>>>ERROR REGISTER")
     })
 }
-var baseUrl = 'http://localhost:3452';
-var params = null;
-var isLoading = null;
-var error = null;
-var movie = null;
-
-$(document).ready(function () {
-  handleFetchMovie();
-});
 
 const handleFetchMovie = async (event) => {
   try {
@@ -74,3 +127,56 @@ const handleFetchMovie = async (event) => {
   }
 };
 
+function login(event) {
+  event.preventDefault();
+  let email = $("#login-email").val();
+  let password = $("#login-password").val();
+  $.ajax({
+          url: `${baseUrl}/users/login`,
+          method: "POST",
+          data: {
+              email,
+              password
+          }
+      })
+      .done(data => {
+          console.log(data, '<<<<<<<<<<<<<<<<< data login');
+          localStorage.setItem("token", data.token)
+          $("#login-email").val("");
+          $("#login-password").val("");
+          afterLogin()
+
+      })
+      .fail(err => {
+          console.log(err.responseJSON.errors, '<<<<<<<<<<<<<<<<< error login');
+      })
+}
+
+function logout(event) {
+  event.preventDefault()
+  let auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+  localStorage.clear();
+  beforeLogin()
+}
+
+//google sign-in
+function onSignIn(googleUser) {
+  var tokenGoogle = googleUser.getAuthResponse().id_token;
+  $.ajax({
+    url: baseUrl+ "/users/googlesign",
+    method: "POST",
+    data: {
+      tokenGoogle
+    }
+  })
+    .done(res => {
+      localStorage.setItem("token", res.token)
+      afterLogin()
+    })
+    .fail(err => {
+      console.log(err, "error google")
+    })
+}

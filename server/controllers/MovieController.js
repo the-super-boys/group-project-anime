@@ -21,7 +21,6 @@ class MovieController {
       let getMovies = await fetchMovies(movies, loadMore, searchTerm);
       res.status(200).json({ anime_movies: getMovies });
     } catch (err) {
-      console.log(err, '<<<<<<<<<<<<<<<<<< ERROR');
       next(err);
     }
   }

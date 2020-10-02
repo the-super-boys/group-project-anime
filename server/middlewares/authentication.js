@@ -1,18 +1,10 @@
-const {
-    User
-} = require('../models/index')
-const {
-    verifyToken
-} = require('../helpers/jwt')
-
+const { User } = require('../models/index')
+const { verifyToken } = require('../helpers/jwt')
 
 async function authentication(req, res, next) {
     try {
-        let {
-            token
-        } = req.headers
+        let { token } = req.headers
         let decoded = verifyToken(token)
-        console.log(decoded, "<<<<<<<<<<<<<<<<<<<<< Ini Decode");
         let user = await User.findOne({
             where: {
                 email: decoded.email
@@ -23,7 +15,6 @@ async function authentication(req, res, next) {
         }
         req.userData = decoded
         next()
-
     } catch (err) {
        next(err)
     }
