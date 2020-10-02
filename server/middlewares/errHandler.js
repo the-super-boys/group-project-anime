@@ -1,8 +1,8 @@
-function errHandler (err, req, res, next) {
+function errHandler(err, req, res, next) {
   let errors = [];
   let statusCode = 500;
 
-  switch(err.name) {
+  switch (err.name) {
     case `SequelizeUniqueConstraintError`:
       errors.push("Email already taken")
       statusCode = 400;
@@ -10,7 +10,7 @@ function errHandler (err, req, res, next) {
     case `Authorization failed`:
       errors.push("Forbidden access")
       statusCode = 403;
-      break;  
+      break;
     case `JsonWebTokenError`:
     case `Authentication failed`:
       errors.push("Failed to authenticate!")
