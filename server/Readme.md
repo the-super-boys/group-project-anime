@@ -75,6 +75,8 @@ _Response (400 - Bad Request)_
 
 ### GET /trivia
 
+> get 3rd api trivia
+
 _Request Header_
 ```
 token: <token from login>
@@ -93,11 +95,24 @@ _Response (200)_
 }
 ```
 
+_Response (401)_
+```
+{
+    "errors": [
+        "Failed to authenticate!"
+    ]
+}
+```
+
 ### GET /gif
+
+> get 3rd party gif
 
 _Request Header_
 ```
-not needed
+{
+    "token": "<your access token>"
+}
 ```
 
 _Request Body_
@@ -105,7 +120,7 @@ _Request Body_
 not needed
 ```
 
-Response (200)_
+_Response (200)_
 ```
 {
     "data": {
@@ -116,3 +131,68 @@ Response (200)_
     }
 }
 ```
+
+_Response (401)_
+```
+{
+    "errors": [
+        "Failed to authenticate!"
+    ]
+}
+```
+
+### GET /jikans
+
+>get 3rd party jikan
+
+_Request Header_
+```
+{
+    "token": "<your access token>"
+}
+```
+
+_Request Body_
+```
+not needed
+```
+
+_Response (200)_
+```
+``
+{
+    "status": 200,
+    "msg": "Success Find all",
+    "todos": [
+        {
+            {
+            "mal_id": 38786,
+            "url": "https://myanimelist.net/anime/38786/Kensaku_to_Enjin_no_Atarashii_Tomodachi__Query_Toujou",
+            "image_url": "https://cdn.myanimelist.net/images/anime/1702/97014.jpg?s=587df5384a786a66b776309c1164e662",
+            "title": "Kensaku to Enjin no Atarashii Tomodachi: Query Toujou!",
+            "airing": false,
+            "synopsis": "Yahoo!'s Kensaku to Enjin franchise gained a new character: Query. She wants to be an idol, loves fashion, and gets quite the motor mouth when angry. This short 2D animation debuts her on stage.",
+            "type": "ONA",
+            "episodes": 1,
+            "score": 0,
+            "start_date": "2018-07-03T00:00:00+00:00",
+            "end_date": "2018-07-03T00:00:00+00:00",
+            "members": 111,
+            "rated": "G"
+        },
+        },
+        .....
+    ]
+}
+```
+
+_Response (401)_
+```
+{
+    "errors": [
+        "Failed to authenticate!"
+    ]
+}
+```
+
+
