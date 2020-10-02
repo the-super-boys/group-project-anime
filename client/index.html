@@ -24,7 +24,6 @@
 
 <body>
 
-
   <!-- Halaman Login -->
   <section id="login-page" class="container">
     <div class="row justify-content-center mt-5">
@@ -110,50 +109,16 @@
   <script src="./resources/js/main.js"></script>
 
   <!--Trivia Page-->
-  <div class="container" id="trivia-page">
-    <div class="container-fluid bg-info">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3><span class="label label-warning" id="qid">2</span> False Is Correct</h3>
-          </div>
-          <div class="modal-body">
-            <div class="col-xs-3 col-xs-offset-5">
-              <div id="loadbar" style="display: none;">
-                <div class="blockG" id="rotateG_01"></div>
-                <div class="blockG" id="rotateG_02"></div>
-                <div class="blockG" id="rotateG_03"></div>
-                <div class="blockG" id="rotateG_04"></div>
-                <div class="blockG" id="rotateG_05"></div>
-                <div class="blockG" id="rotateG_06"></div>
-                <div class="blockG" id="rotateG_07"></div>
-                <div class="blockG" id="rotateG_08"></div>
-              </div>
-            </div>
-            <div class="container" id="correct-page">
-              <h1>Correct!</h1>
-            </div>
-            <div class="container" id="incorrect-page">
-              <h1>InCorrect!</h1>
-            </div>
-            <div class="quiz" id="quiz" data-toggle="buttons">
-              <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label"><i
-                    class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer"
-                  value="True">1
-                True</label>
-              <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i
-                    class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer"
-                  value="False">2
-                False</label>
-            </div>
-          </div>
-          <div class="modal-footer text-muted">
-            <span id="answer"></span>
-          </div>
-        </div>
-      </div>
+  <div class="container mt-5" id="trivia-page">
+
+    
+      
     </div>
+  <div class="container mt-5">
+    <button class="btn btn-primary mt-5" onclick="getTrivia(event)" type="submit">Get Trivia</button>
   </div>
+
+    
 
 
   <!--Home-page-->
@@ -232,6 +197,7 @@
       integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
     <!-- bootstrap script-->
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
       crossorigin="anonymous"></script>

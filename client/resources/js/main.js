@@ -3,7 +3,9 @@ var params = null;
 
 var IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
 var POSTER_SIZE = 'w500';
-
+let triviaTrueAnswer = null;
+let triviaAnswer = null;
+let triviaObj = null;
 let movies = { movies: [] };
 let isLoading;
 let searchTerm = '';
@@ -103,30 +105,8 @@ function afterLogin() {
   $("#home-page").show()
   $("#correct-page").hide()
   $("#incorrect-page").hide()
-  initMovie() // ini untuk inisialisasi movies pada saat masuk homepage
-  $.ajax({
-    method: "get",
-    url: `${baseUrl}/trivia`
-  })
-    .done(trivia => {
-      $("#trivia-page").append(`
-        <div class="row justify-content-center">
-        <div class="card">
-        <h5 class="card-header">Trivia Question</h5>
-        <div class="card-body">
-          <p class="card-text">${trivia.trivia}</p>
-          <a id="btn-trivia-yes" class="btn btn-primary">Yes</a>
-          <a id="btn-trivia-no" class="btn btn-primary">No</a>
-        </div>
-        </div>
-        </div>
-        ` );
-      $("#trivia-page").show()
-
-    })
-    .fail(err => {
-      console.log(err.responseJSON.errors, ">>>>ERROR REGISTER")
-    })
+  $("#trivia-page").show()
+  // initMovie() // ini untuk inisialisasi movies pada saat masuk homepage
 }
 
 function register(event) {
@@ -306,42 +286,42 @@ function onSignIn(googleUser) {
 }
 
 
-$(function () {
-  var loading = $('#loadbar').hide();
-  $(document)
-    .ajaxStart(function () {
-      loading.show();
-    }).ajaxStop(function () {
-      loading.hide();
-    });
+// $(function () {
+//   var loading = $('#loadbar').hide();
+//   $(document)
+//     .ajaxStart(function () {
+//       loading.show();
+//     }).ajaxStop(function () {
+//       loading.hide();
+//     });
 
-  $("label.btn").on('click', function () {
-    var choice = $(this).find('input:radio').val();
-    $('#loadbar').show();
-    $('#quiz').fadeOut();
-    setTimeout(function () {
-      $("#answer").html($(this).checking(choice));
-      $('#loadbar').fadeOut();
-      /* something else */
-    }, 1500);
-  });
+//   $("label.btn").on('click', function () {
+//     var choice = $(this).find('input:radio').val();
+//     $('#loadbar').show();
+//     $('#quiz').fadeOut();
+//     setTimeout(function () {
+//       $("#answer").html($(this).checking(choice));
+//       $('#loadbar').fadeOut();
+//       /* something else */
+//     }, 1500);
+//   });
 
-  $ans = "False";
+//   $ans = "False";
 
 
-  $.fn.checking = function (ck) {
-    if (ck != $ans)
-      return $("#incorrect-page").show(), setTimeout(() => {
-        $('#correct-page').hide(),
-          $('#trivia-page').fadeOut();
-      }, 2000);
-    else
-      return $("#correct-page").show(), setTimeout(() => {
-        $('#correct-page').hide(),
-          $('#trivia-page').fadeOut();
-      }, 2000);
-  }
-})
+//   $.fn.checking = function (ck) {
+//     if (ck != $ans)
+//       return $("#incorrect-page").show(), setTimeout(() => {
+//         $('#correct-page').hide(),
+//           $('#trivia-page').fadeOut();
+//       }, 2000);
+//     else
+//       return $("#correct-page").show(), setTimeout(() => {
+//         $('#correct-page').hide(),
+//           $('#trivia-page').fadeOut();
+//       }, 2000);
+//   }
+// })
 
 function gifShow(event) {
   event.preventDefault()
@@ -360,4 +340,48 @@ function gifShow(event) {
     .fail(err => {
       console.log("ERROR", err)
     })
+}
+
+
+function getTrivia(event) {
+  event.preventDefault()
+  $("#home-page").hide()
+  $("#trivia-page").empty()
+  $.ajax({
+    method: "get",
+    url: `${baseUrl}/trivia`
+  })
+    .done(trivia => {
+      
+      triviaTrueAnswer = trivia.answer;
+      $("#trivia-page").append(`
+      <h1>Trivia</h1>
+      <form id="trivia-form">
+      <form>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <h2>${trivia.trivia}</h2>
+        </div>
+      </div>
+      <div class="form-row">
+        <h2>The answer is: ${trivia.answer}</h2>
+      </div>
+      <button class="btn btn-danger mt-5" onclick="closeTrivia(event)" id="exit-trivia">Exit</button>
+    </form>
+        ` );
+    })
+    .fail(err => {
+      console.log(err.responseJSON.errors, ">>>>ERROR REGISTER")
+    })
+}
+
+// $("#exit-trivia").click(event => {
+//   event.preventDefault()
+//   $("#home-page").show()
+// })
+
+function closeTrivia(event) {
+  event.preventDefault();
+  $("#trivia-page").hide()
+  $("#home-page").show()
 }
