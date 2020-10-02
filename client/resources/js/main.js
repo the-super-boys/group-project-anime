@@ -342,3 +342,22 @@ $(function () {
       }, 2000);
   }
 })
+
+function gifShow(event) {
+  event.preventDefault()
+  $("#gif-container").empty()
+  let search = $("#keyword-gif").val()
+  $.ajax({
+    method: "get",
+    url: `${baseUrl}/gif?q=${search}`
+  })
+    .done(result => {
+      console.log("SUCCESS GIF", result)
+      $("#gif-container").append(`<div>
+      <img src="${result.data.data[0].images.downsized.url}" alt="">
+      </div>`)
+    })
+    .fail(err => {
+      console.log("ERROR", err)
+    })
+}
