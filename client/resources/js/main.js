@@ -23,6 +23,7 @@ $("#cancel-register").click(event => {
   $("#password-register").val("");
   $("#register-page").hide()
   $("#login-page").show()
+  $("#trivia-page").hide()
 })
 
 $("#register-link").click(event => {
@@ -132,22 +133,53 @@ function login(event) {
   let email = $("#login-email").val();
   let password = $("#login-password").val();
   $.ajax({
-          url: `${baseUrl}/users/login`,
-          method: "POST",
-          data: {
-              email,
-              password
-          }
-      })
-      .done(data => {
-          console.log(data, '<<<<<<<<<<<<<<<<< data login');
-          localStorage.setItem("token", data.token)
-          $("#login-email").val("");
-          $("#login-password").val("");
-          afterLogin()
+    url: `${baseUrl}/users/login`,
+    method: "POST",
+    data: {
+      email,
+      password
+    }
+  })
+    .done(data => {
+      console.log(data, '<<<<<<<<<<<<<<<<< data login');
+      localStorage.setItem("token", data.token)
+      $("#login-email").val("");
+      $("#login-password").val("");
+      afterLogin()
 
-      })
-      .fail(err => {
-          console.log(err.responseJSON.errors, '<<<<<<<<<<<<<<<<< error login');
-      })
+    })
+    .fail(err => {
+      console.log(err.responseJSON.errors, '<<<<<<<<<<<<<<<<< error login');
+    })
 }
+
+$(function () {
+  var loading = $('#loadbar').hide();
+  $(document)
+    .ajaxStart(function () {
+      loading.show();
+    }).ajaxStop(function () {
+      loading.hide();
+    });
+
+  $("label.btn").on('click', function () {
+    var choice = $(this).find('input:radio').val();
+    $('#loadbar').show();
+    $('#quiz').fadeOut();
+    setTimeout(function () {
+      $("#answer").html($(this).checking(choice));
+      $('#quiz').show();
+      $('#loadbar').fadeOut();
+      /* something else */
+    }, 1500);
+  });
+
+  $ans = 'False';
+
+  $.fn.checking = function (ck) {
+    if (ck != $ans)
+      return 'INCORRECT';
+    else
+      return 'CORRECT';
+  };
+});	
