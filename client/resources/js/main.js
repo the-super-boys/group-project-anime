@@ -43,6 +43,8 @@ function afterLogin() {
   $("#login-page").hide()
   $("#register-page").hide()
   $("#home-page").show()
+  $("#correct-page").hide()
+  $("#incorrect-page").hide()
   $.ajax({
     method: "get",
     url: `${baseUrl}/trivia`
@@ -61,6 +63,7 @@ function afterLogin() {
         </div>
         ` );
       $("#trivia-page").show()
+      $("#correct-page").hide()
     })
     .fail(err => {
       console.log(err.responseJSON.errors, ">>>>ERROR REGISTER")
@@ -168,7 +171,6 @@ $(function () {
     $('#quiz').fadeOut();
     setTimeout(function () {
       $("#answer").html($(this).checking(choice));
-      $('#quiz').show();
       $('#loadbar').fadeOut();
       /* something else */
     }, 1500);
@@ -178,8 +180,14 @@ $(function () {
 
   $.fn.checking = function (ck) {
     if (ck != $ans)
-      return 'INCORRECT';
+      return $("#incorrect-page").show(), setTimeout(() => {
+        $('#correct-page').hide(),
+          $('#trivia-page').fadeOut();
+      }, 2000);
     else
-      return 'CORRECT';
+      return $("#correct-page").show(), setTimeout(() => {
+        $('#correct-page').hide(),
+          $('#trivia-page').fadeOut();
+      }, 2000);
   };
 });	
