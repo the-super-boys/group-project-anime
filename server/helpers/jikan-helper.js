@@ -6,9 +6,9 @@ const { SEARCH_BASE_URL } = require('../config/jikan');
 
 module.exports = {
   fetchMovies: async (movies = { movies: [] }, loadMore, searchTerm) => {
-    let endpoint = `${SEARCH_BASE_URL}${searchTerm}&page=${loadMore ? movies.currentPage + 1 : 1}`;
+    console.log(JSON.stringify(movies), loadMore, searchTerm);
 
-    console.log(endpoint);
+    let endpoint = `${SEARCH_BASE_URL}${searchTerm}&page=${loadMore ? movies.last_page + 1 : 1}`;
 
     let result = await (await fetch(endpoint)).json();
 

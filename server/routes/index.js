@@ -7,7 +7,7 @@ const triviaRouter = require('./triviaRouter');
 
 router.use('/jikans', jikanRouter);
 router.use('/users', userRouter);
-// router.use(authentication);
+router.use(authentication);
 router.use('/movies', movieRouter);
 router.use('/trivia', triviaRouter);
 

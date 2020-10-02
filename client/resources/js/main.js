@@ -7,12 +7,10 @@ let isLoading;
 let searchTerm = '';
 let error;
 
-const handleFetchMovies = async (loadMore, searchTerm) => {
+const handleFetchJikans = async (loadMore, searchTerm) => {
   try {
-    isLoading = true;
-    error = false;
     $.ajax({
-      url: `${baseUrl}/movies/`,
+      url: `${baseUrl}/jikans/`,
       method: 'POST',
       headers: {
         token: localStorage.getItem('token'),
@@ -24,12 +22,11 @@ const handleFetchMovies = async (loadMore, searchTerm) => {
       },
     })
       .done((res) => {
-        movies.currentPage = res.anime_movies.currentPage;
-        movies.heroImage = res.anime_movies.heroImage;
-        movies.totalPages = res.anime_movies.totalPages;
+        movies.currentPage = res.anime_movies.last_page;
+        movies.request_hash = res.anime_movies.request_hash;
         movies.movies = [];
 
-        res.anime_movies.movies.map((movie) => {
+        res.anime_movies.results.map((movie) => {
           movies.movies.push(movie);
         });
 
@@ -43,9 +40,8 @@ const handleFetchMovies = async (loadMore, searchTerm) => {
 
         let output = '';
         $.each(movies.movies, function (key, val) {
-          let image = `${val.poster_path}` && `${IMAGE_BASE_URL}${POSTER_SIZE}${val.poster_path}`;
-          let movieId = val.id;
-          let href = movieId ? `/movies/${movieId}` : '1';
+          let image = `${val.image_url}`;
+          let href = `${val.url}`;
           let src = image ? image : `./resources/img/no_image.jpg`;
           output = `
             <div class="wrapper">
@@ -58,15 +54,14 @@ const handleFetchMovies = async (loadMore, searchTerm) => {
         });
       })
       .fail((err) => {
-        console.log(err, '<<<<<<<<<<<<<<<<< ERROR');
+        console.log(err, '<<<< ERROR');
       });
   } catch (err) {
-    error = true;
+    console.log(err, '<<<< ERROR');
   }
-  isLoading = false;
 };
 
-const handleLoadMore = () => handleFetchMovies(true, searchTerm);
+const handleLoadMore = () => handleFetchJikans(true, searchTerm);
 
 //setup before functions
 var typingTimer; //timer identifier
@@ -88,10 +83,10 @@ $input.on('keydown', function () {
 function doneTyping() {
   searchTerm = $('#search-widget').val();
   $('#movies-container').empty();
-  handleFetchMovies(false, searchTerm);
+  handleFetchJikans(false, searchTerm);
 }
 
-function initMovies() {
+function initJikans() {
   const sessionMovies = window.sessionStorage.getItem('anime_movies');
   if (sessionMovies) {
     console.log('Grabbing from sessionStorage.');
@@ -101,24 +96,22 @@ function initMovies() {
     console.log(moviesresult.length);
     let output = '';
     $.each(moviesresult, function (key, val) {
-      let image = `${val.poster_path}` && `${IMAGE_BASE_URL}${POSTER_SIZE}${val.poster_path}`;
-      console.log(image);
-      let movieId = val.id;
-      let href = movieId ? `/movies/${movieId}` : '1';
+      let image = `${val.image_url}`;
+      let href = `${val.url}`;
       let src = image ? image : `./resources/img/no_image.jpg`;
       output = `
-          <div class="wrapper">
-            <a href="${href}">
-              <img class="clickable" src="${src}" alt="moviethumb" />
-            </a>
-          </div>
-        `;
+            <div class="wrapper">
+              <a href="${href}">
+                <img class="clickable" src="${src}" alt="moviethumb" />
+              </a>
+            </div>
+          `;
       $('#movies-container').append(output);
     });
   } else {
     console.log('Grabbing from API.');
-    searchTerm = 'Anime';
-    handleFetchMovies(false, searchTerm);
+    searchTerm = 'One Pieces';
+    handleFetchJikans(false, searchTerm);
   }
 }
 
@@ -159,7 +152,13 @@ function afterLogin() {
   $('#login-page').hide();
   $('#register-page').hide();
   $('#home-page').show();
-  initMovies();
+
+  initJikans();
+
+  // initMovies();
+
+  // handleFetchJikans(false, 'One Pieces');
+
   $.ajax({
     method: 'get',
     url: `${baseUrl}/trivia`,
