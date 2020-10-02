@@ -156,6 +156,7 @@ function login(event) {
     })
 }
 
+
 $(function () {
   var loading = $('#loadbar').hide();
   $(document)
@@ -176,7 +177,8 @@ $(function () {
     }, 1500);
   });
 
-  $ans = 'False';
+  $ans = "False";
+
 
   $.fn.checking = function (ck) {
     if (ck != $ans)
@@ -189,5 +191,5 @@ $(function () {
         $('#correct-page').hide(),
           $('#trivia-page').fadeOut();
       }, 2000);
-  };
-});	
+  }
+})
