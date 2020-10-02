@@ -4,12 +4,12 @@ const fetch = require('node-fetch');
 const { POPULAR_BASE_URL, SEARCH_BASE_URL, API_URL, MOVIE_ENDPOINT, CREDITS_ENDPOINT } = require('../config/tmdb');
 
 module.exports = {
-  fetchMovies: async (movies, loadMore, searchTerm) => {
-    const endpoint = searchTerm
+  fetchMovies: async (movies = { movies: [] }, loadMore, searchTerm) => {
+    let endpoint = searchTerm
       ? `${SEARCH_BASE_URL}${searchTerm}&page=${loadMore ? movies.currentPage + 1 : 1}`
       : `${POPULAR_BASE_URL}&page=${loadMore ? movies.currentPage + 1 : 1}`;
 
-    const result = await (await fetch(endpoint)).json();
+    let result = await (await fetch(endpoint)).json();
 
     return {
       ...movies,
