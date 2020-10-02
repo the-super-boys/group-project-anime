@@ -151,3 +151,32 @@ function login(event) {
           console.log(err.responseJSON.errors, '<<<<<<<<<<<<<<<<< error login');
       })
 }
+
+function logout(event) {
+  event.preventDefault()
+  let auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+  localStorage.clear();
+  beforeLogin()
+}
+
+//google sign-in
+function onSignIn(googleUser) {
+  var tokenGoogle = googleUser.getAuthResponse().id_token;
+  $.ajax({
+    url: baseUrl+ "/users/googlesign",
+    method: "POST",
+    data: {
+      tokenGoogle
+    }
+  })
+    .done(res => {
+      localStorage.setItem("token", res.token)
+      afterLogin()
+    })
+    .fail(err => {
+      console.log(err, "error google")
+    })
+}

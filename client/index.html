@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="google-signin-client_id" content="424707792905-bpsft8mkmr1top02j0kg850dpiidpf55.apps.googleusercontent.com">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -44,6 +44,10 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+          <div>
+            <p>Or use another account</p>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </div>
           <div>
             <p>Don't have an account? <a href="" id="register-link">Register</a></p>
           </div>
@@ -121,7 +125,9 @@
                 <img class="tmdb-logo" src="./resources/img/tmdb_logo.svg" alt="tmdb-logo" />
               </div>
             </header>
-
+            <div>
+              <button type="submit" onclick="logout(event)" class="btn btn-primary">Logout</button>
+            </div>
             <!-- Jumbotrone / Hero Gais Nanti bisa di show atau hide -->
             <section class="hero-wrapper">
               <div class="hero-content">
@@ -216,13 +222,13 @@
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
           <script src="resources/js/main.js"></script>
 
+          <script src="https://apis.google.com/js/platform.js" async defer></script>
         </body>
 
          </html>
           
 
 </body>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="./main.js"></script>
 
