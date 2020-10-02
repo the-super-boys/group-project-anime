@@ -95,6 +95,7 @@ function beforeLogin() {
   $("#register-page").hide()
   $("#trivia-page").hide()
   $("#home-page").hide()
+  $("#get-trivia-button").hide()
 }
 
 function afterLogin() {
@@ -103,30 +104,11 @@ function afterLogin() {
   $("#home-page").show()
   $("#correct-page").hide()
   $("#incorrect-page").hide()
-  initMovie() // ini untuk inisialisasi movies pada saat masuk homepage
-  $.ajax({
-    method: "get",
-    url: `${baseUrl}/trivia`
-  })
-    .done(trivia => {
-      $("#trivia-page").append(`
-        <div class="row justify-content-center">
-        <div class="card">
-        <h5 class="card-header">Trivia Question</h5>
-        <div class="card-body">
-          <p class="card-text">${trivia.trivia}</p>
-          <a id="btn-trivia-yes" class="btn btn-primary">Yes</a>
-          <a id="btn-trivia-no" class="btn btn-primary">No</a>
-        </div>
-        </div>
-        </div>
-        ` );
-      $("#trivia-page").show()
+  $("#trivia-page").show()
+  $("#get-trivia-button").show()
+  initJikans();
+  // ini untuk inisialisasi movies pada saat masuk homepage
 
-    })
-    .fail(err => {
-      console.log(err.responseJSON.errors, ">>>>ERROR REGISTER")
-    })
 }
 
 function register(event) {
@@ -306,7 +288,7 @@ function onSignIn(googleUser) {
 }
 
 
-$(function () {
+/*$(function () {
   var loading = $('#loadbar').hide();
   $(document)
     .ajaxStart(function () {
@@ -322,26 +304,26 @@ $(function () {
     setTimeout(function () {
       $("#answer").html($(this).checking(choice));
       $('#loadbar').fadeOut();
-      /* something else */
-    }, 1500);
-  });
+      /* something else *//*
+}, 1500);
+});
 
-  $ans = "False";
+$ans = "False";
 
 
-  $.fn.checking = function (ck) {
-    if (ck != $ans)
-      return $("#incorrect-page").show(), setTimeout(() => {
-        $('#correct-page').hide(),
-          $('#trivia-page').fadeOut();
-      }, 2000);
-    else
-      return $("#correct-page").show(), setTimeout(() => {
-        $('#correct-page').hide(),
-          $('#trivia-page').fadeOut();
-      }, 2000);
-  }
-})
+$.fn.checking = function (ck) {
+if (ck != $ans)
+return $("#incorrect-page").show(), setTimeout(() => {
+$('#correct-page').hide(),
+$('#trivia-page').fadeOut();
+}, 2000);
+else
+return $("#correct-page").show(), setTimeout(() => {
+$('#correct-page').hide(),
+$('#trivia-page').fadeOut();
+}, 2000);
+}
+}) */
 
 function gifShow(event) {
   event.preventDefault()
@@ -349,15 +331,173 @@ function gifShow(event) {
   let search = $("#keyword-gif").val()
   $.ajax({
     method: "get",
-    url: `${baseUrl}/gif?q=${search}`
+    url: `${baseUrl}/gif?q=${search}`,
+    headers: {
+      token: localStorage.token
+    }
   })
     .done(result => {
       console.log("SUCCESS GIF", result)
       $("#gif-container").append(`<div>
-      <img src="${result.data.data[0].images.downsized.url}" alt="">
+      <img src="${result.data.url}" alt="">
       </div>`)
     })
     .fail(err => {
       console.log("ERROR", err)
     })
+}
+
+function getTrivia(event) {
+  event.preventDefault()
+  $("#home-page").hide()
+  $("#trivia-page").empty()
+  $.ajax({
+    method: "get",
+    url: `${baseUrl}/trivia`,
+    headers: {
+      token: localStorage.token
+    }
+  })
+    .done(trivia => {
+
+      triviaTrueAnswer = trivia.answer;
+      $("#trivia-page").append(`
+      <h1>Trivia</h1>
+      <form id="trivia-form">
+      <form>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <h2>${trivia.trivia}</h2>
+        </div>
+      </div>
+      <div class="form-row">
+        <h2>The answer is: ${trivia.answer}</h2>
+      </div>
+      <button class="btn btn-danger mt-5" onclick="closeTrivia(event)" id="exit-trivia">Exit</button>
+    </form>
+        ` );
+    })
+    .fail(err => {
+      console.log(err.responseJSON.errors, ">>>>ERROR REGISTER")
+    })
+}
+
+function closeTrivia(event) {
+  event.preventDefault();
+  $("#trivia-page").hide()
+  $("#home-page").show()
+}
+
+
+/*let movies = { movies: [] };
+let isLoading;
+let searchTerm = '';
+let error;*/
+
+const handleFetchJikans = async (loadMore, searchTerm) => {
+  try {
+    $.ajax({
+      url: `${baseUrl}/jikans/`,
+      method: 'POST',
+      headers: {
+        token: localStorage.getItem('token'),
+      },
+      data: {
+        movies,
+        loadMore,
+        searchTerm,
+      },
+    })
+      .done((res) => {
+        movies.currentPage = res.anime_movies.last_page;
+        movies.request_hash = res.anime_movies.request_hash;
+        movies.movies = [];
+
+        res.anime_movies.results.map((movie) => {
+          movies.movies.push(movie);
+        });
+
+        console.log(movies);
+
+        console.log(movies.movies.length);
+
+        if (movies.movies.length > 0) {
+          window.sessionStorage.setItem('anime_movies', JSON.stringify(movies));
+        }
+
+        let output = '';
+        $.each(movies.movies, function (key, val) {
+          let image = `${val.image_url}`;
+          let href = `${val.url}`;
+          let src = image ? image : `./resources/img/no_image.jpg`;
+          output = `
+            <div class="wrapper">
+              <a href="${href}">
+                <img class="clickable" src="${src}" alt="moviethumb" />
+              </a>
+            </div>
+          `;
+          $('#movies-container').append(output);
+        });
+      })
+      .fail((err) => {
+        console.log(err, '<<<< ERROR');
+      });
+  } catch (err) {
+    console.log(err, '<<<< ERROR');
+  }
+};
+
+//const handleLoadMore = () => handleFetchJikans(true, searchTerm);
+
+//setup before functions
+var typingTimer; //timer identifier
+var doneTypingInterval = 3000; //time in ms, 5 second for example
+var $input = $('#search-widget');
+
+//on keyup, start the countdown
+$input.on('keyup', function () {
+  clearTimeout(typingTimer);
+  typingTimer = setTimeout(doneTyping, doneTypingInterval);
+});
+
+//on keydown, clear the countdown
+$input.on('keydown', function () {
+  clearTimeout(typingTimer);
+});
+
+//user is "finished typing," do something
+function doneTyping() {
+  searchTerm = $('#search-widget').val();
+  $('#movies-container').empty();
+  handleFetchJikans(false, searchTerm);
+}
+
+function initJikans() {
+  const sessionMovies = window.sessionStorage.getItem('anime_movies');
+  if (sessionMovies) {
+    console.log('Grabbing from sessionStorage.');
+    curr_movies = JSON.parse(sessionMovies);
+    console.log(curr_movies.movies);
+    let moviesresult = curr_movies.movies;
+    console.log(moviesresult.length);
+    let output = '';
+    $.each(moviesresult, function (key, val) {
+      let image = `${val.image_url}`;
+      let href = `${val.url}`;
+      let src = image ? image : `./resources/img/no_image.jpg`;
+      output = `
+            <div class="wrapper">
+              <a href="${href}">
+                <img class="clickable" src="${src}" alt="moviethumb" />
+              </a>
+            </div>
+          `;
+      $('#movies-container').append(output);
+    });
+  } else {
+    console.log('Grabbing from API.');
+    searchTerm = 'One Pieces';
+    handleFetchJikans(false, searchTerm);
+  }
 }
