@@ -4,7 +4,6 @@ var isLoading = null;
 var error = null;
 var movie = null;
 
-
 $(document).ready(function () {
   // Handler for .ready() called.
   console.log("Hello world")
@@ -14,6 +13,26 @@ $(document).ready(function () {
     beforeLogin();
   }
 });
+
+function gifShow(event) {
+  event.preventDefault()
+  $("#gif-container").empty()
+  let search = $("#keyword-gif").val()
+  $.ajax({
+    method: "get",
+    url: `${baseUrl}/gif?q=${search}`
+  })
+    .done(result => {
+      console.log("SUCCESS GIF",result)
+      $("#gif-container").append(`<div>
+      <img src="${result.data.data[0].images.downsized.url}" alt="">
+      </div>`)
+    })
+    .fail(err => {
+      console.log("ERROR",err)
+    })
+}
+
 
 $("#cancel-register").click(event => {
   event.preventDefault();
@@ -42,28 +61,28 @@ function afterLogin() {
   $("#login-page").hide()
   $("#register-page").hide()
   $("#home-page").show()
-  $.ajax({
-    method: "get",
-    url: `${baseUrl}/trivia`
-  })
-    .done(trivia => {
-      $("#trivia-page").append(`
-        <div class="row justify-content-center">
-        <div class="card">
-        <h5 class="card-header">Trivia Question</h5>
-        <div class="card-body">
-          <p class="card-text">${trivia.trivia}</p>
-          <a id="btn-trivia-yes" class="btn btn-primary">Yes</a>
-          <a id="btn-trivia-no" class="btn btn-primary">No</a>
-        </div>
-        </div>
-        </div>
-        ` );
-      $("#trivia-page").show()
-    })
-    .fail(err => {
-      console.log(err.responseJSON.errors, ">>>>ERROR REGISTER")
-    })
+  // $.ajax({
+  //   method: "get",
+  //   url: `${baseUrl}/trivia`
+  // })
+  //   .done(trivia => {
+  //     $("#trivia-page").append(`
+  //       <div class="row justify-content-center">
+  //       <div class="card">
+  //       <h5 class="card-header">Trivia Question</h5>
+  //       <div class="card-body">
+  //         <p class="card-text">${trivia.trivia}</p>
+  //         <a id="btn-trivia-yes" class="btn btn-primary">Yes</a>
+  //         <a id="btn-trivia-no" class="btn btn-primary">No</a>
+  //       </div>
+  //       </div>
+  //       </div>
+  //       ` );
+  //     $("#trivia-page").show()
+  //   })
+  //   .fail(err => {
+  //     console.log(err.responseJSON.errors, ">>>>ERROR REGISTER")
+  //   })
 }
 
 function register(event) {

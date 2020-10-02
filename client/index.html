@@ -128,6 +128,17 @@
             <div>
               <button type="submit" onclick="logout(event)" class="btn btn-primary">Logout</button>
             </div>
+            <!-- search GIF-->
+            <form>
+              <div class="form-group">
+                <input required type="text" class="form-control" id="keyword-gif" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">Input your keyword just for fun</small>
+              </div>
+              <button type="submit" onclick="gifShow(event)" class="btn btn-primary">Submit</button>
+            </form>
+            <div id="gif-container">
+              
+            </div>
             <!-- Jumbotrone / Hero Gais Nanti bisa di show atau hide -->
             <section class="hero-wrapper">
               <div class="hero-content">
